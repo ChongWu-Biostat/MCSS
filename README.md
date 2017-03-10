@@ -318,7 +318,7 @@ Lambda=(1:4:10)*1;
 tau1=1;
 
 tau2=0.1;
-[beta_hat,M_list,CF_list] =  MCSS_ME_CV1(A,G,0.5,Lambda,tau2,tau1);
+ [beta_t,CF] =  MCSS_ME_CV1(A,G,0.5,Lambda,tau2,tau1);
 
 %function [beta_t,CF] = MCSS_ME_CV1(A,G, gamma, Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
 % Input:
@@ -364,9 +364,10 @@ tau1=1;
 
 tau2=0.1;
 alpha = 0.001;
-
+T = 5;
 %% Generate random starting values
-beta_0_start = zeros(p,T)
+beta_0_start = zeros(p,T);
+b6=[];
 for tt = 1:T
 	randIndex = tt;
     s=RandStream('mcg16807','Seed',randIndex);
@@ -378,12 +379,13 @@ for tt = 1:T
         beta_0=random('bino',1,randi([2,8])/p,p,1);
         b5=find(beta_0>0)';
     end
-
+    
+    b6=[b6,sum(log([b5,0.5]))];            
     beta_0=zeros(p,1);beta_0(b5)=1;
     beta_0_start(:,tt) = beta_0;
 end
 
-[beta_hat,M_list,CF_list] = MCSS_CV2(A,G,0.5, Lambda,tau2,tau1,alpha, beta_0_final);
+[beta_hat,M_list,CF_list] = MCSS_CV2(A,G,0.5,Lambda,tau2,tau1,alpha, beta_0_start);
 
 % function  [beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,gamma,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
 % Input:
