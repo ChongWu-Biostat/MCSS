@@ -150,7 +150,7 @@ tau1=1;
 
 tau2=0.1;
 alpha = 0.001;
-
+T = 5;
 %% Generate random starting values
 beta_0_start = zeros(p,T)
 for tt = 1:T
