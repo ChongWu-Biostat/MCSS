@@ -385,7 +385,7 @@ for tt = 1:T
     beta_0_start(:,tt) = beta_0;
 end
 
-[beta_hat,M_list,CF_list] = MCSS_CV2(A,G,0.5,Lambda,tau2,tau1,alpha, beta_0_start);
+[beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,0.5,Lambda,tau2,tau1,alpha, beta_0_start);
 
 % function  [beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,gamma,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
 % Input:
