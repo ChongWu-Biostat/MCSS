@@ -98,7 +98,7 @@ beta_new = MCSS(A,1,1,0.1);
 
 
 ## Selecting the tuning parameters 
-Selecting the tuning parameters is an important step for using MCSS. A better choice of tuning parameters will lead to a better result. Here, we provide a simple function that can select the tuning parameters based on the cross validation automatically. Since the results only depend on the ratio of tau1/tau2, we only search tau2 and fix tau1.
+Selecting the tuning parameters is an important step for using MCSS. A better choice of tuning parameters will lead to a better result. Here, we provide a simple function that can select the tuning parameters via sample splitting procedure automatically. Specifically, we randomly partition the observations into training data and tuning data. We train the model based on the training data and use the tuning data to determine the tuning error (cost value) for each combination of tuning parameters. We repeat this process *M* time. Since the results only depend on the ratio of tau1/tau2, we only search tau2 and fix tau1. See more details in Model selection subsection (2.5) in our upcoming paper.
 
 
 ```matlab
