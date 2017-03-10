@@ -153,6 +153,7 @@ alpha = 0.001;
 T = 5;
 %% Generate random starting values
 beta_0_start = zeros(p,T)
+b6=[];
 for tt = 1:T
 	randIndex = tt;
     s=RandStream('mcg16807','Seed',randIndex);
@@ -164,7 +165,8 @@ for tt = 1:T
         beta_0=random('bino',1,randi([2,8])/p,p,1);
         b5=find(beta_0>0)';
     end
-
+    
+    b6=[b6,sum(log([b5,0.5]))];            
     beta_0=zeros(p,1);beta_0(b5)=1;
     beta_0_start(:,tt) = beta_0;
 end
