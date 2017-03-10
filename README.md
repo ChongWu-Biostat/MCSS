@@ -107,7 +107,7 @@ Lambda=(1:4:10)*1;
 tau1=1;
 
 tau2=0.1;
-[beta_hat,M_list,CF_list] =  MCSS_CV1(A,Lambda,tau2,tau1);
+ [beta_t,CF] =  MCSS_CV1(A,Lambda,tau2,tau1);
 %function [beta_t,CF] = MCSS_CV1(A,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
 % Input:
 %		A--n*p mutation matrix
