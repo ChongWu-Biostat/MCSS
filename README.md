@@ -108,7 +108,9 @@ tau1=1;
 
 tau2=0.1;
  [beta_t,CF] =  MCSS_CV1(A,Lambda,tau2,tau1);
-%function [beta_t,CF] = MCSS_CV1(A,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
+
+% Help:
+% function [beta_t,CF] = MCSS_CV1(A,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s,M)
 % Input:
 %		A--n*p mutation matrix
 %		Lambda--a set of tuning parameters for lambda.
@@ -128,6 +130,7 @@ tau2=0.1;
 %				The default value is 20.
 %		Err_s--termination condition for sub-gradient algorithm.
 %				The default value is 0.001.
+%		M--repeat CV for M times
 %
 % Output: 
 %		beta_t--a resulting estimate of beta
@@ -173,14 +176,13 @@ end
 
 [beta_hat,M_list,CF_list] = MCSS_CV2(A,Lambda,tau2,tau1,alpha, beta_0_start);
 
-%function  [beta_hat,M_list,CF_list] = MCSS_CV2(A,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
-
+% function  [beta_hat,M_list,CF_list] = MCSS_CV2(A,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num,  Err,max_iter_num_s,Err_s,M)
 % Input:
 %		A--n*p mutation matrix
 %		Lambda--a set of tuning parameters for lambda.
 %		Tau2--a set of tuning parameters for tau2.
-%		tau1--tuning parameters
-%		alpha--tuning parameters with ridge penalty
+%		tau1--a tuning parameter
+%		alpha--a tuning parameter with ridge penalty
 %				The default value is 0.001.
 %		beta_0--starting value of beta.
 %				If we set beta_0=-1, a good starting value will be calculated.
@@ -194,12 +196,16 @@ end
 %				The default value is 20.
 %		Err_s--termination condition for sub-gradient algorithm.
 %				The default value is 0.001.
-% Output: beta_t--a resulting estimate of beta
-%         CF--cost values corresponding Lambda
+%		M--repeat CV for M times
+%
+% Output: 
+%		beta_t--a resulting estimate of beta
+%       CF--cost values corresponding Lambda
 %
 % Author: Binghui Liu and Chong Wu (wuxx0845@umn.edu)
 % Maintainer: Chong Wu (wuxx0845@umn.edu)
 % Version: 1.0
+
 ```
 
 
@@ -279,7 +285,9 @@ G=mvnrnd(zeros(pG,1),V,n);
 
 ```matlab
 beta_new = MCSS_ME(A,G,0.5,1,1,0.1);
-%function beta_new =MCSS_ME(A,G,gamma,lambda,tau1,tau2,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
+
+% function beta_new =MCSS_ME(A,G,gamma,lambda,tau1,tau2,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
+%
 % Input:
 %		A--n*p mutation matrix
 %		G--n*p gene expression matrix
@@ -291,7 +299,7 @@ beta_new = MCSS_ME(A,G,0.5,1,1,0.1);
 %				The default value is 0.001.
 %		beta_0--starting value of beta.
 %				If we set beta_0=-1, a good starting value will be calculated.
-%		method--method for step2 in Algorithm 1. 2 (default) stands for CVX.
+%		method--method for step2 in Algorithm 1. 1 (default) is sub-gradient and  2  stands for CVX.
 %		weight--weight of exclusivity cost. The default is 1.
 %		max_iter_num--maximum number of iterations for difference of convex step.
 %				The default value is 20.
@@ -320,7 +328,7 @@ tau1=1;
 tau2=0.1;
  [beta_t,CF] =  MCSS_ME_CV1(A,G,0.5,Lambda,tau2,tau1);
 
-%function [beta_t,CF] = MCSS_ME_CV1(A,G, gamma, Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
+% function [beta_t,CF] = MCSS_ME_CV1(A,G, gamma, Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s,M)
 % Input:
 %		A--n*p mutation matrix
 %		G--n*p gene expression matrix
@@ -342,10 +350,11 @@ tau2=0.1;
 %				The default value is 20.
 %		Err_s--termination condition for sub-gradient algorithm.
 %				The default value is 0.001.
+%		M--repeat CV for M times
 %
 % Output: 
 %		beta_t--a resulting estimate of beta
-%       CF--cost values corresponding Lambda
+%       	CF--cost values corresponding Lambda
 %
 % Author: Binghui Liu and Chong Wu (wuxx0845@umn.edu)
 % Maintainer: Chong Wu (wuxx0845@umn.edu)
@@ -387,7 +396,7 @@ end
 
 [beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,0.5,Lambda,tau2,tau1,alpha, beta_0_start);
 
-% function  [beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,gamma,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s)
+% function  [beta_hat,M_list,CF_list] = MCSS_ME_CV2(A,G,gamma,Lambda,Tau2, tau1,alpha, beta_0, method,weight,max_iter_num, Err,max_iter_num_s,Err_s,M)
 % Input:
 %		A--n*p mutation matrix
 %		G--n*p gene expression matrix
@@ -409,6 +418,7 @@ end
 %				The default value is 20.
 %		Err_s--termination condition for sub-gradient algorithm.
 %				The default value is 0.001.
+%		M--repeat CV for M times
 %
 % Output: 
 %		beta_t--a resulting estimate of beta
@@ -418,6 +428,7 @@ end
 % Author: Binghui Liu and Chong Wu (wuxx0845@umn.edu)
 % Maintainer: Chong Wu (wuxx0845@umn.edu)
 % Version: 1.0
+
 
 ```
 
